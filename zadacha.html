@@ -8,19 +8,22 @@
 </head>
 <body>
     <script>
-    function sum(a){
-        let rezult=a;
-        function f(b){
-            rezult+=b;
-            return f;
-        }
-        f.toString=function(){
-            return rezult;
-        }
-        return f;
+    
+    var sum = (function() {
+    var rezult = 0;
+
+    function sum(b) {
+        rezult += +b || 0;
+        return sum;
     }
-console.log(sum(1)(2)(3));
-console.log(sum(1)(2)(23));
+    sum.valueOf = function() {
+        return rezult;
+    }
+    sum.toString = valueOf;
+    return sum;
+}());
+
+console.log(sum(4)()()(5)()(2)());
     </script>
 </body>
 </html>
